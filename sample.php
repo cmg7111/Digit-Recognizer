@@ -15,16 +15,10 @@
             #var_dump($_FILES);
         }
     }else{
-        #var_dump($_FILES);
+        $command = escapeshellcmd('cp sample.jpg image.png');
+        $output = shell_exec($command);
     }
 
-    $command = escapeshellcmd('python3 ocr_card.py');
-    $output = shell_exec($command);
-    echo $output;
-
-    $command = escapeshellcmd('python3 code_card.py');
-    $output = shell_exec($command);
-    echo $output;
 
 
     

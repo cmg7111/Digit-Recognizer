@@ -62,13 +62,13 @@ def convert(cnt):
 
     if rows > cols:
         factor = 120.0/rows
-        rows = 100
+        rows = 120
         cols = int(round(cols*factor))
         # first cols than rows
         gray = cv2.resize(gray, (cols,rows))
     else:
         factor = 120.0/cols
-        cols = 100
+        cols = 120
         rows = int(round(rows*factor))
         # first cols than rows
         gray = cv2.resize(gray, (cols, rows))
@@ -87,10 +87,6 @@ def convert(cnt):
     cv2.imwrite(filename , gray)
     #cv2.imwrite(filename , gray)
 
-def get_contour_precedence(contour, cols):
-    tolerance_factor = 10
-    origin = cv2.boundingRect(contour)
-    return ((origin[1] // tolerance_factor) * tolerance_factor) * cols + origin[0]
 
 if __name__ == '__main__':
     box1=[]
@@ -109,23 +105,25 @@ if __name__ == '__main__':
     blur = cv2.GaussianBlur(img2,(3,3),0)
     #흑백 전처리
 
-    canny=cv2.Canny(blur,100,200)
+    canny=cv2.Canny(blur,150,300)
+
+    
     #사진에 맞춰준 숫자 100, 200)
     cnts,contours,hierarchy=cv2.findContours(canny,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-
     for i in range(len(contours)):
         cnt=contours[i]
         area=cv2.contourArea(cnt)
         x,y,w,h=cv2.boundingRect(cnt)
         rect_area=w*h
         aspect_ratio=float(w)/h
-
-        if(aspect_ratio>=0.2) and (aspect_ratio<=1.0) and (rect_area>=150) and (w>7) :
+        
+        if(aspect_ratio>=0.2) and (aspect_ratio<=1.0) and (rect_area>=150) and (rect_area<=800) and (w>5):
             cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),1)
             cv2.rectangle(origin_img2,(x,y),(x+w,y+h),(250,255,0),1)
             s5 = '/var/www/html/numrecog/output_origin.jpg'     
             cv2.imwrite(s5 , origin_img2)
             box1.append(cv2.boundingRect(cnt))
+
    
     #숫자영역 아닌부분 제외
     for i in range(len(box1)):
@@ -139,7 +137,7 @@ if __name__ == '__main__':
         count=0
         for n in range(m+1,(len(box1)-1)):
                 delta_x=abs(box1[n+1][0]-box1[m][0])
-                if(delta_x>150):
+                if(delta_x>100):
                     break;
                 delta_y=abs(box1[n+1][1]-box1[m][1])
                 if delta_x==0:
@@ -153,7 +151,6 @@ if __name__ == '__main__':
             select=m
             f_count=count
             plate_width=delta_x
-
     #s_y=box1[select][1]-10
     #s_x=box1[select][0]-10
     #p_height=abs(box1[select][3]+box1[select][1]+20)
@@ -161,9 +158,8 @@ if __name__ == '__main__':
     #img_nump=cv2.rectangle(img,(s_x,s_y),(delta_x,p_height),(255,255,0),1)
     #s4 = '/var/www/html/numrecog/output_numplate.jpg'     
     #cv2.imwrite(s4 , img_nump)
-
-    number_plate=copy_img[box1[select][1]-10:box1[select][3]+box1[select][1]+20,box1[select][0]-10:170+box1[select][0]]
-    #number_plate=copy_img[box1[select][1]-20:box1[select][3]+box1[select][1]+30,box1[select][0]-100:250+box1[select][0]]
+    
+    number_plate=copy_img[box1[select][1]-100:box1[select][3]+box1[select][1]+200,box1[select][0]-100:200+box1[select][0]]
     #s2 = '/var/www/html/numrecog/output_numberplate.jpg'     
     #cv2.imwrite(s2 , number_plate)
 
@@ -173,23 +169,20 @@ if __name__ == '__main__':
     img2=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(img2,(3,3),0)
     #흑백 전처리
-
+    
     canny=cv2.Canny(blur,100,200)
     #사진에 맞춰준 숫자 100, 200)
 
   
     cnts,contours,hierarchy=cv2.findContours(canny,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) 
-    
-    contours.sort(key=lambda x:get_contour_precedence(x, img.shape[1]))
 
     index = 0 
     for contour in contours: 
         x,y,w,h = cv2.boundingRect(contour)
-
         rect_area=w*h
         aspect_ratio=float(w)/h
-  
-        if(aspect_ratio>=0.2) and (aspect_ratio<=1.0) and (w>7) :
+
+        if(aspect_ratio>=0.2) and (aspect_ratio<=1.0) and (w>5) :
             box2.append(cv2.boundingRect(contour))
             cropped = img[y :y +  h , x : x + w]
             #cropped2 = image_final[y :y +  h , x : x + w]   
@@ -201,11 +194,10 @@ if __name__ == '__main__':
             #cv2.imwrite(s3 , cropped2)    
             index = index + 1
             for i in range(len(box2)):
-                cv2.rectangle(origin_img,(box1[select][0]-10+x,box1[select][1]-10+y),(box1[select][0]-10+x+w,box1[select][1]-10+y+h),(255,0,255),2)
+                cv2.rectangle(origin_img,(box1[select][0]-100+x,box1[select][1]-100+y),(box1[select][0]-100+x+w,box1[select][1]-100+y+h),(255,0,255),2)
     
     s2 = '/var/www/html/numrecog/output.jpg'     
     cv2.imwrite(s2 , origin_img)
 
     for cnt in range(0,(len(next(os.walk(directory))[2]))):
         convert(cnt)
-

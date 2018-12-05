@@ -99,32 +99,15 @@ button.glyphicon{
 #holder { border: 3px dashed #ccc; width: 550px; min-height: 500px; margin:30px auto; float:left; margin-left:50px; position:relative; text-align:middle;}
 #holder.hover { border: 3px dashed #A9D0F5; }
 #holder img { 
-    max-height: 100%;  
-    max-width: 100%; 
-    width: auto;
-    height: auto;
     position: absolute;  
     top: 0;  
     bottom: 0;  
     left: 0;  
     right: 0;  
-    margin: auto; }
+    margin:auto;
+    }
 
-#holder button{
-    width: 150px;
-    height: 40px;
-    position: absolute;  
-    top: 0;  
-    bottom: 0;  
-    left: 0;  
-    right: 0;  
-    margin: auto; 
-}
 
-#btn {
-    background-color: #000000;
-    border:0;
-}
 
 
 #result { margin:30px auto; float:left; padding-left:30px; overflow: auto; }
@@ -152,7 +135,7 @@ a{
 {
     margin-left: 30px;
     float: left;
-    height: 500px;
+    height: 550px;
     width: 500px;
     overflow-y: auto;
     margin-bottom: 25px;
@@ -160,7 +143,7 @@ a{
 
 .force-overflow
 {
-    min-height: 450px;
+    min-height: 500px;
 }
 
 
@@ -230,4 +213,21 @@ table{
 th,td{
 	text-align:center;
 	width:100px;
+}
+
+    
+#holder button{
+    width: 150px;
+    height: 40px;
+    position: absolute;  
+    top: 0; 
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    margin-top:510px;
+}
+
+#btn {
+    background-color: #000000;
+    border:0;
 }

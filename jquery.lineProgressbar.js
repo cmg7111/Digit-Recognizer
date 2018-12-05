@@ -54,7 +54,7 @@
                 {
                     step: function (x) {
                         if (options.ShowProgressCount) {
-                            $(el).find(".percentCount").text(x.toFixed(2)+ "%");
+                            $(el).find(".percentCount").text(Math.round(x) + "%");
                         }
                     },
                     duration: options.duration
@@ -79,7 +79,7 @@
                 {
                     step: function (x) {
                         if (options.ShowProgressCount) {
-                            $(el).find(".percentCount").text(x.toFixed(2) + "%");
+                            $(el).find(".percentCount").text(Math.round(x) + "%");
                         }
                     },
                     duration: options.duration
