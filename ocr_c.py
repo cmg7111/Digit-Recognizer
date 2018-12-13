@@ -90,7 +90,7 @@ def convert(cnt):
 def get_contour_precedence(contour, cols):
     tolerance_factor = 10
     origin = cv2.boundingRect(contour)
-    return ((origin[1] // tolerance_factor) * tolerance_factor) * cols + origin[0]
+    return ((origin[0] // tolerance_factor) * tolerance_factor) * cols + origin[1]
 
 if __name__ == '__main__':
     box1=[]
@@ -120,7 +120,7 @@ if __name__ == '__main__':
         rect_area=w*h
         aspect_ratio=float(w)/h
 
-        if(aspect_ratio>=0.2) and (aspect_ratio<=1.0) and (rect_area>=150) and (w>7) :
+        if(aspect_ratio>=0.2) and (aspect_ratio<=1.0) and (rect_area>=150) :
             cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),1)
             cv2.rectangle(origin_img2,(x,y),(x+w,y+h),(250,255,0),1)
             s5 = '/var/www/html/numrecog/output_origin.jpg'     
@@ -162,7 +162,7 @@ if __name__ == '__main__':
     #s4 = '/var/www/html/numrecog/output_numplate.jpg'     
     #cv2.imwrite(s4 , img_nump)
 
-    number_plate=copy_img[box1[select][1]-10:box1[select][3]+box1[select][1]+20,box1[select][0]-10:170+box1[select][0]]
+    number_plate=copy_img[box1[select][1]-10:box1[select][3]+box1[select][1]+20,box1[select][0]-10:140+box1[select][0]]
     #number_plate=copy_img[box1[select][1]-20:box1[select][3]+box1[select][1]+30,box1[select][0]-100:250+box1[select][0]]
     #s2 = '/var/www/html/numrecog/output_numberplate.jpg'     
     #cv2.imwrite(s2 , number_plate)
@@ -189,7 +189,7 @@ if __name__ == '__main__':
         rect_area=w*h
         aspect_ratio=float(w)/h
   
-        if(aspect_ratio>=0.2) and (aspect_ratio<=1.0) and (w>7) :
+        if(aspect_ratio>=0.2) and (aspect_ratio<=1.0)  :
             box2.append(cv2.boundingRect(contour))
             cropped = img[y :y +  h , x : x + w]
             #cropped2 = image_final[y :y +  h , x : x + w]   
@@ -201,7 +201,7 @@ if __name__ == '__main__':
             #cv2.imwrite(s3 , cropped2)    
             index = index + 1
             for i in range(len(box2)):
-                cv2.rectangle(origin_img,(box1[select][0]-10+x,box1[select][1]-10+y),(box1[select][0]-10+x+w,box1[select][1]-10+y+h),(255,0,255),2)
+                cv2.rectangle(origin_img,(box1[select][0]-10+x,box1[select][1]-10+y),(box1[select][0]-10+x+w,box1[select][1]-10+y+h),(255,0,255),1)
     
     s2 = '/var/www/html/numrecog/output.jpg'     
     cv2.imwrite(s2 , origin_img)

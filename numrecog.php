@@ -77,7 +77,19 @@ h1{
     margin-top:0px;
 }
 
+th{
+    font-size:xx-large;
+    text-align:center;
+    width:200px;
+}
 
+tr{
+    font-size:xx-large;
+}
+
+.force-overflow{
+    padding-right:30px;
+}
     </style>
   </head>
 
@@ -105,7 +117,7 @@ h1{
   <div class="main-wrapper">
      <div class="jumbotron">
       <div class="container">
-        <h1>Digit Recognizer - Car Number Plates</h1>
+        <h1>Car Number Plates Recognizer</h1>
         <p>업로드한 자동차 이미지 내에서 번호판 숫자를 인식하여 출력합니다.
       </div>
     </div>
@@ -316,7 +328,7 @@ h1{
                 cell3.style.width="230px";
                 var image = new Image();
                 var node = document.createElement('p');
-                node.style.fontSize="XX-large";
+                node.style.fontSize="50px";
                 node.innerHTML=res[0][i];
 
                 var node2 = document.createElement('div');
@@ -326,8 +338,9 @@ h1{
                 
                 image.src = 'numimg/crop_'+i+'.jpg'+'?_='+ new Date().getTime();;
                 image.id="result"
-                image.width=50;
-                image.height=40;
+                image.width=70;
+                image.height=80;
+                
                 cell1.appendChild(image);
                 cell2.appendChild(node);
                 cell3.appendChild(node2);
@@ -554,7 +567,7 @@ if(isset($_POST['get_image']))
                 cell3.style.width="230px";
                 var image = new Image();
                 var node = document.createElement('p');
-                node.style.fontSize="XX-large";
+                node.style.fontSize="30px";
                 node.innerHTML=res[0][i];
 
                 var node2 = document.createElement('div');
@@ -564,8 +577,8 @@ if(isset($_POST['get_image']))
                 
                 image.src = 'numimg/crop_'+i+'.jpg'+'?_='+ new Date().getTime();;
                 image.id="result"
-                image.width=50;
-                image.height=40;
+                image.width=100;
+       
                 cell1.appendChild(image);
                 cell2.appendChild(node);
                 cell3.appendChild(node2);
