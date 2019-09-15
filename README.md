@@ -3,13 +3,15 @@
 #### Co-op Project (2018) / 산학협력 프로젝트 with GIT(Goodmorning Information Technology Co. Ltd.)
 
 ### Numberplate Digt Recognizer
+- 사용자가 업로드한 자동차 이미지 번호판 숫자 인식  
+- 이미지 처리(OpenCV) + 숫자 인식(Machine Learning)  
+
 #### 역할
 1） 번호판 영역 추출 （OpenCV）  
 2） 백엔드 서버 구성（AWS EC2, Apache）  
 3） 프론트엔드 제작 （HTML5, PHP, JS）  
 
-- 사용자가 업로드한 자동차 이미지 번호판 숫자 인식  
-- 이미지 처리(OpenCV) + 숫자 인식(Machine Learning)   
+ 
 
 ### System Architecture
 ![](https://cmg7111.github.io/numberplate_architecture.png)
